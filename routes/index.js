@@ -47,6 +47,28 @@ router.post('/videos', function(req, res) {
 	});
 });
 
+router.get('/videos/:id/edit', function(req, res) {
+	var collection = db.get('videos');
+	collection.findOne({ _id: req.params.id }, function(err, video){
+		if (err) throw err;
+	  	res.render('update', {video: video});
+	});
+});
+
+router.put('/videos/:id', function(req, res) {
+	var collection = db.get('videos');
+	var video = {
+		title: req.body.title,
+		genre: req.body.genre,
+		image: req.body.image,
+		description: req.body.desc
+	};
+	collection.update({ _id: req.params.id }, {$set : video}, function(err, dbResponse){
+		if (err) throw err;
+		res.redirect('/videos/'+req.params.id);
+	});
+});
+
 router.get('/videos/:id', function(req, res) {
 	var collection = db.get('videos');
 	collection.findOne({ _id: req.params.id }, function(err, video){
