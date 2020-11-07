@@ -1,0 +1,19 @@
+<%- include ('partials/header') %>
+
+<div class="jumbotron">
+    <h1 class="display-4">Vidzy Application</h1>
+    <p class="lead">This is the list of most popular videos</p>
+    <a class="btn btn-primary btn-lg" href="/videos/new" role="button">Add new video</a>
+</div>
+
+<div class="container">
+<div class="row">
+<%videos.forEach( function(video){%>
+    <div clss = "sm-col-3">
+        <img src="images/<%=video.image%>" style="width:200px; height:200px; margin: 5px"/>
+        <div class = "caption"><a href="videos/<%=video._id%>"><%=video.title%></a></div>
+    </div>
+<% });%>
+</div>
+</div>
+<%- include ('partials/footer') %>

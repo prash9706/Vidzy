@@ -1,0 +1,28 @@
+<%- include ('partials/header') %>
+<div class="container">
+<h2>New Movie</h2>
+    <form action="/videos" method="POST">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" name="title" class="form-control" placeholder="Title">
+    </div>
+    <div class="form-group">
+        <label for="genre">Genre</label>
+        <input type="text" name="genre" class="form-control" placeholder="Genre">
+    </div>
+    <div class="form-group">
+        <label for="image">Image</label>
+        <input type="text" name="image" class="form-control" placeholder="Image">
+    </div>
+    <div class="form-group">
+        <label for="desc">Description</label>
+        <textarea  name="desc" class="form-control" placeholder="Description"></textarea>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-info">Save</button>
+    </div>
+    </form>
+
+    <a href="/">Cancel</a>
+</div>
+<%-include ('partials/footer') %>
