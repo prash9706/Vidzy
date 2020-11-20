@@ -7,13 +7,16 @@ var router = express.Router();
 // });
 
 var monk = require('monk');
-
+var fetchedVideos = [];
+var videoByGenre = [];
 var db = monk('localhost:27017/vidzy');
 
 router.get('/videos', function(req, res) {
 	var collection = db.get('videos');
 	collection.find({}, function(err, videos){
 		if (err) throw err;
+		fetchedVideos = videos;
+		videoByGenre = videos;
 	  	res.render('index', {videos: videos});
 	});
 });
@@ -75,5 +78,31 @@ router.get('/videos/:id', function(req, res) {
 		if (err) throw err;
 	  	res.render('show', {video: video});
 	});
+});
+
+router.post('/videos/search', function(req, res) {
+	var videos = [];
+	var titleText = req.body.search;
+	if(titleText!=undefined){
+		titleText = titleText.toLowerCase();
+	}
+	videoByGenre.forEach(function(video){
+		if(video.title.toLowerCase().includes(titleText)){
+			videos.push(video);
+		}
+	});
+	res.render('index', {videos: videos});
+});
+
+router.get('/videos/genre/:genre', function(req, res) {
+	var videos = [];
+	var genre = req.params.genre;
+	fetchedVideos.forEach(function(video){
+		if(video.genre===genre || genre==='All'){
+			videos.push(video);
+		}
+	});
+	videoByGenre = videos;
+	res.render('index', {videos: videos});
 });
 module.exports = router;

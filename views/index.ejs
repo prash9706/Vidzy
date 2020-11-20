@@ -6,14 +6,40 @@
     <a class="btn btn-primary btn-lg" href="/videos/new" role="button">Add new video</a>
 </div>
 
-<div class="container">
-<div class="row">
-<%videos.forEach( function(video){%>
-    <div clss = "sm-col-3">
-        <img src="images/<%=video.image%>" style="width:200px; height:200px; margin: 5px"/>
-        <div class = "caption"><a href="videos/<%=video._id%>"><%=video.title%></a></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Genres
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="/videos/genre/All">All</a>
+                  <a class="dropdown-item" href="/videos/genre/Action">Action</a>
+                  <a class="dropdown-item" href="/videos/genre/Drama">Drama</a>
+                  <a class="dropdown-item" href="/videos/genre/Comedy">Comedy</a>
+                  <a class="dropdown-item" href="/videos/genre/Fantasy">Fantasy</a>
+                </div>
+              </div>
+        </div>
+        <div class = "col-10">
+            <div class="row">
+                <form class="form-inline md-form mr-auto mb-4" action="/videos/search" method="POST">
+                    <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search..." aria-label="Search">
+                    <button type="submit" class="btn btn-info">
+                        <span class="glyphicon glyphicon-search"></span> Search
+                    </button>
+                </form>
+            </div>
+            <div class="row">
+            <%videos.forEach( function(video){%>
+                <div>
+                    <img src="/images/<%=video.image%>" style="width:200px; height:200px; margin: 5px"/>
+                    <div class = "caption"><a href="/videos/<%=video._id%>"><%=video.title%></a></div>
+                </div>
+            <% });%>
+            </div>
+        </div>
     </div>
-<% });%>
-</div>
 </div>
 <%- include ('partials/footer') %>
